@@ -9,7 +9,7 @@ import (
 )
 
 func SignUp(sig models.SignUp) error {
-	fmt.Println("Comienza registro")
+	fmt.Println("Comienza Registro")
 
 	err := DbConnect()
 	if err != nil {
@@ -17,7 +17,7 @@ func SignUp(sig models.SignUp) error {
 	}
 	defer Db.Close()
 
-	sentencia := "INSERT INTO users (User_Email, User_UUID, User_DateADD) VALUES ('" + sig.UserEmail + " ',' " + sig.UserUUID + "','" + tools.FechaMYSQL() + "')"
+	sentencia := "INSERT INTO users (User_Email, User_UUID, User_DateAdd) VALUES ('" + sig.UserEmail + "','" + sig.UserUUID + "','" + tools.FechaMySQL() + "')"
 	fmt.Println(sentencia)
 
 	_, err = Db.Exec(sentencia)
@@ -26,6 +26,6 @@ func SignUp(sig models.SignUp) error {
 		return err
 	}
 
-	fmt.Println("SignUp > Ejecución exitosa ")
+	fmt.Println("SignUp > Ejecución Exitosa")
 	return nil
 }

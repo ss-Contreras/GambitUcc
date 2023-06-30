@@ -7,34 +7,36 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/ss-Contreras/GambitUcc/models"
-	secretmgo "github.com/ss-Contreras/GambitUcc/secretm.go"
+	"github.com/ss-Contreras/GambitUcc/secretm"
 )
 
-var SecretModel models.SecretRDSJon
+var SecretModel models.SecretRDSJson
 var err error
 var Db *sql.DB
 
 func ReadSecret() error {
-	SecretModel, err = secretmgo.GetSecret(os.Getenv("SecreName"))
+	SecretModel, err = secretm.GetSecret(os.Getenv("SecretName"))
 	return err
 }
 
 func DbConnect() error {
-	Db, err = sql.Open("Mysql", ConnStr(SecretModel))
+	Db, err = sql.Open("mysql", ConnStr(SecretModel))
 	if err != nil {
 		fmt.Println(err.Error())
 		return err
 	}
-	err := Db.Ping()
+
+	err = Db.Ping()
 	if err != nil {
 		fmt.Println(err.Error())
 		return err
 	}
-	fmt.Println("Conexion a la base de datos funcionando")
+
+	fmt.Println("Conexión exitosa de la BD")
 	return nil
 }
 
-func ConnStr(claves models.SecretRDSJon) string {
+func ConnStr(claves models.SecretRDSJson) string {
 	var dbUser, authToken, dbEndpoint, dbName string
 	dbUser = claves.Username
 	authToken = claves.Password

@@ -1,4 +1,4 @@
-package secretmgo
+package secretm
 
 import (
 	"encoding/json"
@@ -10,9 +10,9 @@ import (
 	"github.com/ss-Contreras/GambitUcc/models"
 )
 
-func GetSecret(nombreSecret string) (models.SecretRDSJon, error) {
-	var datosSecret models.SecretRDSJon
-	fmt.Println(" >  Pido Secreto " + nombreSecret)
+func GetSecret(nombreSecret string) (models.SecretRDSJson, error) {
+	var datosSecret models.SecretRDSJson
+	fmt.Println(" > Pido Secreto " + nombreSecret)
 
 	svc := secretsmanager.NewFromConfig(awsgo.Cfg)
 	clave, err := svc.GetSecretValue(awsgo.Ctx, &secretsmanager.GetSecretValueInput{
@@ -24,6 +24,6 @@ func GetSecret(nombreSecret string) (models.SecretRDSJon, error) {
 	}
 
 	json.Unmarshal([]byte(*clave.SecretString), &datosSecret)
-	fmt.Println(" > Lectura Secret Correcta " + nombreSecret)
+	fmt.Println(" > Lectura Secret OK " + nombreSecret)
 	return datosSecret, nil
 }

@@ -19,11 +19,11 @@ func main() {
 
 func EjecutoLambda(ctx context.Context, event events.CognitoEventUserPoolsPostConfirmation) (events.CognitoEventUserPoolsPostConfirmation, error) {
 
-	awsgo.InicializoAws()
+	awsgo.InicializoAWS()
 
 	if !ValidoParametros() {
-		fmt.Println("Error en los parametros. Se debe enviar 'ScretManager'")
-		err := errors.New("Error en los parametros, se debe enviar SecretName")
+		fmt.Println("Error en los parámetros. debe enviar 'SecretName'")
+		err := errors.New("error en los parámetros debe enviar SecretName")
 		return event, err
 	}
 
@@ -53,5 +53,5 @@ func EjecutoLambda(ctx context.Context, event events.CognitoEventUserPoolsPostCo
 func ValidoParametros() bool {
 	var traeParametro bool
 	_, traeParametro = os.LookupEnv("SecretName")
-	return (traeParametro)
+	return traeParametro
 }
